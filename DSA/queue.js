@@ -2,29 +2,50 @@ class Queue{
     constructor(){
         this.data = {};
         this.frontIndex = 0;
-        this.readIndex = -1;
+        this.rearIndex = -1;
 
     }
 
     enqueue(element){
-        this.readIndex++;
-        this.data[this.readIndex] = element;
+        this.rearIndex++;
+        this.data[this.rearIndex] = element;
 
     }
 
     traverse(){
         let output = "";
-        for(let i=this.frontIndex; i <= this.readIndex; i++){
+        for(let i=this.frontIndex; i <= this.rearIndex; i++){
             output += this.data[i] + " ";
         }
 
-        console.log(output);
+        return output;
+    }
+
+    is_empty(){
+        return this.frontIndex > this.rearIndex;
+    }
+    size(){
+        return this.rearIndex - this.frontIndex + 1;
+    }
+
+    dequeue(){
+
+        if(this.is_empty()) return null;
+
+        const value = this.data[this.frontIndex];
+        delete this.data[this.frontIndex];
+        this.frontIndex++;
+        return value;
     }
 }
 
 //
-let queue = new Queue();
-queue.enqueue(4);
-queue.enqueue(2);
-queue.enqueue(3);
-queue.traverse(); 
+let queue1 = new Queue();
+queue1.enqueue(4);
+queue1.enqueue(2);
+queue1.enqueue(3);
+//queue1.traverse(); 
+
+console.log(queue1.traverse());
+console.log("The front value" +queue1.dequeue()+" is dequiued");
+console.log(queue1.traverse());
